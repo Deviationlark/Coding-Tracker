@@ -241,14 +241,6 @@ namespace CodingTracker
                 Console.ReadLine();
                 getUserInput.MainMenu();
             }
-
-            foreach (var goal in tableData)
-            {
-                string[] info = getUserInput.GetDueGoalInfo(Convert.ToInt32(goal.Hours), goal.Date);
-                goal.RemainingDays = info[0];
-                goal.RemainingHours = info[1];
-                goal.HoursPerDay = info[2];
-            }
             if (tableData.Count > 0)
                 tableVisualisation.ShowGoalsTable(tableData);
 
