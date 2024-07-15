@@ -199,7 +199,7 @@ namespace CodingTracker
 
         internal void ProcessDelete()
         {
-            codingController.Get();
+            codingController.Get(1);
             int id = GetNumInput("Type the ID of the session you want to delete. Type 0 to go back to Main Menu");
 
             var coding = codingController.Delete(id);
@@ -228,14 +228,14 @@ namespace CodingTracker
 
         internal void ProcessUpdate()
         {
-            codingController.Get();
+            codingController.Get(1);
             int id = GetNumInput("Type the ID of the session you want to update. Type 0 to go back to Main Menu");
             codingController.Update(id);
         }
 
         internal void SetGoals()
         {
-            DateTime dueDate = DateTime.Parse(GetDateInput("Type the date you want to finish this goal by: "));
+            DateTime dueDate = DateTime.Parse(GetDateInput("Type the date you want to finish this goal by(dd-MM-yy): "));
             int hours;
             Goals goals = new();
 
@@ -264,18 +264,18 @@ namespace CodingTracker
 
         internal void RemoveGoal()
         {
-            codingController.ViewGoals();
-            int id = GetNumInput("Type the ID of the session you want to delete. Type 0 to go back to Main Menu");
+            codingController.ViewGoals(1);
+            int id = GetNumInput("Type the ID of the goal you want to delete. Type 0 to go back to Main Menu");
 
             var coding = codingController.DeleteGoal(id);
 
             while (coding == 0)
             {
-                Console.WriteLine($"Record with id {id} doesn't exist");
+                Console.WriteLine($"Goal with id {id} doesn't exist");
                 Console.ReadLine();
 
                 codingController.ViewGoals();
-                id = GetNumInput("Type the ID of the session you want to delete. Type 0 to go back to Main Menu");
+                id = GetNumInput("Type the ID of the goal you want to delete. Type 0 to go back to Main Menu");
 
                 coding = codingController.DeleteGoal(id);
             }

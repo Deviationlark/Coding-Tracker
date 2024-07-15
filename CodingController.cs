@@ -7,7 +7,7 @@ namespace CodingTracker
     internal class CodingController
     {
         static string? connectionString = ConfigurationManager.AppSettings.Get("connectionString");
-        internal void Get()
+        internal void Get(int num = 0)
         {
             GetUserInput getUserInput = new();
             TableVisualisation tableVisualisation = new();
@@ -34,6 +34,12 @@ namespace CodingTracker
             }
             if (tableData.Count > 0)
                 tableVisualisation.ShowTable(tableData);
+
+            if (num == 0)
+            {
+                Console.WriteLine("Press enter to go back to main menu.");
+                Console.ReadLine();
+            }
         }
 
         internal void Post(CodingSession coding)
@@ -194,7 +200,7 @@ namespace CodingTracker
             }
             TimeSpan duration;
             TimeSpan totalDuration = new();
-            
+
             foreach (var element in tableData)
             {
                 if (tableData.Count < 1) element.Duration = "00:00:00";
@@ -203,7 +209,7 @@ namespace CodingTracker
             }
             TimeSpan averageDuration = new TimeSpan(0, 0, 0);
             if (tableData.Count > 1)
-            averageDuration = TimeSpan.FromSeconds(totalDuration.TotalSeconds / tableData.Count);
+                averageDuration = TimeSpan.FromSeconds(totalDuration.TotalSeconds / tableData.Count);
 
             info[0] = string.Format("{0:%h} hours {0:%m} minutes {0:%s} seconds", totalDuration);
             info[1] = string.Format("{0:%h} hours {0:%m} minutes {0:%s} seconds", averageDuration);
@@ -212,7 +218,7 @@ namespace CodingTracker
 
         }
 
-        internal void ViewGoals()
+        internal void ViewGoals(int num = 0)
         {
             GetUserInput getUserInput = new();
             TableVisualisation tableVisualisation = new();
@@ -244,7 +250,13 @@ namespace CodingTracker
                 goal.HoursPerDay = info[2];
             }
             if (tableData.Count > 0)
-            tableVisualisation.ShowGoalsTable(tableData);
+                tableVisualisation.ShowGoalsTable(tableData);
+
+            if (num == 0)
+            {
+                Console.WriteLine("Press enter to go back to main menu.");
+                Console.ReadLine();
+            }
         }
 
         internal void InsertGoal(Goals goals)
